@@ -4,11 +4,11 @@
 var Map = (function () {
     'use strict';
 
-    function createRoad(game, roadWidth, roadLength) {
+    function createRoad(game, roadLength) {
 
         var roadTexture = THREE.ImageUtils.loadTexture('img/road.png');
         var road = new THREE.Mesh(
-            new THREE.BoxGeometry(roadWidth*10, 20, roadLength*10),
+            new THREE.BoxGeometry(500, 20, roadLength),
             new THREE.MeshLambertMaterial({
                 map: roadTexture
             })
