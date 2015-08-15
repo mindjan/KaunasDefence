@@ -33,7 +33,7 @@ var Game = (function () {
 
 
 $(document).ready(function () {
-    $.connection.hub.url = "http://192.168.1.104:43210/signalr";
+    $.connection.hub.url = "http://localhost:43210/signalr";
     var game = Game;
     var map = Map;
     var tower = Tower;
@@ -49,11 +49,11 @@ $(document).ready(function () {
     map.createRoad(game, 4000);
     bullet.createBullet(game);
     tower.createTower(game, 400, 40, 0);
-    game.scene.add(game.attacker.createAtacker(game));
+    game.scene.add(game.attacker.createAttacker(game));
 
     bullet.shootAttackerFromTower(tower.tower, game.attacker.attacker);
 
-    /*$.connection.hub.start()
+    $.connection.hub.start()
         .done(function () {
             hub.server.createGameRoom();
             document.location.hash = "mode=initial";
@@ -62,28 +62,33 @@ $(document).ready(function () {
     hub.on('gameRoomCreated', function () {
         $('#messages').append('Game room created !<br />');
         hub.server.connectDefender();
-        hub.server.connectttacker();
+        hub.server.connectAttacker();
+    });
+    
+    hub.on('defenderConnected', function () {
+        $('#messages').append('Attacker connected !<br />');
+        $('#player_1').css("background-color", "#8BC34A");
     });
 
     hub.on('attackerConnected', function () {
         $('#messages').append('Attacker connected !<br />');
-        $('#player_2').css("background-color", "green");
+        $('#player_2').css("background-color", "#8BC34A");
     });
 
     hub.on('setupStarted', function (data) {
         $('#messages').append('Setup started !<br />');
-        /!**
-         * On commit uncomment
-         *!/
-            //map.createRoad(game, data.posY);
+        map.createRoad(game, data.PosX, data.PosY);
+        var map_posX = {};
         hub.server.markAttackerReady();
         hub.server.markDefenderReady();
     });
 
     hub.on('attackerMove', function (x, z) {
-        attacker.moveAtacker(x, z);
-        game.camera.position.set(x, 200, z + 50);
-        game.camera.rotation.set(50, 0, 0);
+        game.attacker.moveAttacker(1, z*10*-1);
+        game.camera.position.x = 1;
+        game.camera.position.y = 100;
+        game.camera.position.z = z*10*-1 +200;
+        game.camera.rotation.set(0, 0, 0);
     });
 
 
@@ -127,7 +132,7 @@ $(document).ready(function () {
         $('#messages').append('Attacker received damage !<br />');
         $('#health_bar').css("width", health_left + "%");
     });
-*/
+
 
     $('#player_1').click(function () {
         document.location.hash = "mode=attacker";
