@@ -48,7 +48,7 @@ $(document).ready(function () {
      */
     map.createRoad(game, 4000);
     bullet.createBullet(game);
-    tower.createTower(game, 400, 40, 1);
+    tower.createTower(game, 400, 40, 0);
     game.scene.add(game.attacker.createAtacker(game));
 
     bullet.shootAttackerFromTower(tower.tower, game.attacker.attacker);
