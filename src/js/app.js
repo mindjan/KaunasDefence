@@ -62,10 +62,12 @@ $(document).ready(function () {
 
     hub.on('defenderCreated', function () {
         $('#messages').append('Defender created !');
+        $('#player_1').css("background-color", "green");
     });
 
     hub.on('attackerCreated', function () {
         $('#messages').append('Attacker created !');
+        $('#player_2').css("background-color", "green");
     });
 
     hub.on('setupStarted', function () {
