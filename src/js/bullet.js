@@ -1,5 +1,7 @@
 var Bullet = (function () {
     var bullet = new Physijs.BoxMesh(new THREE.CubeGeometry(10, 10, 10), new THREE.MeshLambertMaterial({color: 0xff0f0f}), 0);
+    var intervalValue = 0;
+    var intervalTimeout;
 
     'use strict';
     function createBullet(game) {
@@ -10,19 +12,25 @@ var Bullet = (function () {
         game.scene.add(bullet);
     }
 
+    function clearTimeOut() {
+        window.clearTimeout(intervalTimeout);
+        bullet.position.x = 400;
+        bullet.position.z = 0;
+    }
+
     function shootAttackerFromTower(tower, attacker) {
+
         var distance = Math.sqrt(Math.pow(tower.position.x - attacker.position.x, 2) + Math.pow(attacker.position.z - tower.position.z, 2));
 
         var interval = 50;
-        var intervalValue = 0;
         var distValue = distance / interval;
         var distX;
 
         function timeout() {
-            setTimeout(function () {
+            intervalTimeout = setTimeout(function () {
                 timeout();
 
-                if (intervalValue * distValue < distance) {
+                if (intervalValue * distValue < distance * 0.8) {
                     distance = Math.sqrt(Math.pow(tower.position.x - attacker.position.x, 2) + Math.pow(attacker.position.z - tower.position.z, 2));
 
                     /**
@@ -41,9 +49,11 @@ var Bullet = (function () {
                     intervalValue++;
                 }
                 else {
+
                     intervalValue = 0;
                     bullet.position.x = 400;
                 }
+
             }, 1);
         }
 
@@ -54,6 +64,7 @@ var Bullet = (function () {
     return {
         bullet: bullet,
         createBullet: createBullet,
-        shootAttackerFromTower: shootAttackerFromTower
+        shootAttackerFromTower: shootAttackerFromTower,
+        clearTimeOut: clearTimeOut
     };
 })();

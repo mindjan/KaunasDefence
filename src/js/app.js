@@ -43,15 +43,20 @@ $(document).ready(function () {
 
     game.init();
 
-    /**
-     * On commit delete
-     */
+    // on commit delete :)
     map.createRoad(game, 4000);
+    //////////////////////////
     bullet.createBullet(game);
     tower.createTower(game, 400, 40, 0);
     game.scene.add(game.attacker.createAttacker(game));
 
+
+    ////////////// On commit delete :)
     bullet.shootAttackerFromTower(tower.tower, game.attacker.attacker);
+    setTimeout(function () {
+        bullet.clearTimeOut();
+    }, 3000);
+    //////////////////////////////////////
 
     $.connection.hub.start()
         .done(function () {
@@ -133,6 +138,13 @@ $(document).ready(function () {
         $('#health_bar').css("width", health_left + "%");
     });
 
+    hub.on('towerStartedShooting', function () {
+        bullet.shootAttackerFromTower(tower.tower, game.attacker.attacker);
+    });
+
+    hub.on('towerStoppedShooting', function () {
+        bullet.clearTimeOut();
+    });
 
     $('#player_1').click(function () {
         document.location.hash = "mode=attacker";
