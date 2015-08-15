@@ -67,12 +67,12 @@ $(document).ready(function () {
     
     hub.on('defenderConnected', function () {
         $('#messages').append('Attacker connected !<br />');
-        $('#player_1').css("background-color", "green");
+        $('#player_1').css("background-color", "#8BC34A");
     });
 
     hub.on('attackerConnected', function () {
         $('#messages').append('Attacker connected !<br />');
-        $('#player_2').css("background-color", "green");
+        $('#player_2').css("background-color", "#8BC34A");
     });
 
     hub.on('setupStarted', function (data) {

@@ -21,6 +21,7 @@ body {
     height:120px;
     display:inline-block;
     margin: 200px 50px 0px 50px;
+    font-family: 'Roboto', sans-serif;
 }
 
 #player_1, #player_2 {
@@ -39,6 +40,9 @@ body {
     width:250px;
     height:25px;
     margin: 0 auto;
+    font-family: 'Roboto', sans-serif;
+    font-size:small;
+
 }
 
 #health_bar_container {
