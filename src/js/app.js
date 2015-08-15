@@ -45,13 +45,27 @@ $(document).ready(function () {
     });
 
     hub.on('defenderCreated', function () {
-        $('#messages').append('asd');
+        $('#messages').append('Defender created !');
     });
 
     hub.on('attackerCreated', function () {
-        $('#messages').append('newmessage');
+        $('#messages').append('Attacker created !');
     });
 
+    hub.on('setupStarted', function () {
+        $('#messages').append('Setup started !');
+        hub.server.attackerReady();
+        hub.server.defenderReady();
+    });
+    
+    hub.on('attackerPrepared', function () {
+        $('#messages').append('Attacker prepared !');
+    });
+    
+    hub.on('defenderPrepared', function () {
+        $('#messages').append('Defender prepared !');
+    });
+    
     hub.on('roundStarted', function () {
         $('#messages').append('Round started!');
     });
