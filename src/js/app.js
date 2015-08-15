@@ -35,10 +35,7 @@ $(document).ready(function () {
         });
 
     hub.on('gameRoomCreated', function () {
-        $.connection.hub.start()
-            .done(function () {
-                hub.server.createDefender(game.defender);
-            });
+        hub.server.createDefender(game.defender);
     });
     hub.on('gameRoomCreated', function () {
         $.connection.hub.start()
@@ -52,6 +49,20 @@ $(document).ready(function () {
     });
     hub.on('attackerCreated', function () {
                 hub.server.createAttacker(game.attacker);
+    hub.on('roundStarted', function () {
+        $('#messages').append('Round started!');
+    });
+
+    hub.on('roundFinished', function () {
+        $('#messages').append('Round finished!');
+    });
+
+    hub.on('attackerWon', function () {
+        $('#messages').append('Attacker won!');
+    });
+
+    hub.on('defenderWon', function () {
+        $('#messages').append('Defender won!');
     });
 });
 
