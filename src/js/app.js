@@ -42,4 +42,8 @@ $(document).ready(function () {
     hub.on('defenderCreated', function () {
         console.log("DefenderCreated");
     });
+
 });
+
+
+$('#messages').append('asd');    

@@ -5,15 +5,30 @@ html, body {
 
 body {
     background-color: #f4f4f4;
-    display:table;
 }
 
 #main_frame {
     background-color: #929292;
-    width:600px;
-    height:300px;
+    width:1200px;
+    height:800px;
     margin: 0 auto;
     text-align:center;
-    display:table-cell;
-    vertical-align: middle;
+}
+
+#player_1_frame, #player_2_frame {
+    width:100px;
+    height:120px;
+    display:inline-block;
+    margin: 200px 50px 0px 50px;
+}
+
+#player_1, #player_2 {
+    display:inline-block;
+    width:100px;
+    height:100px;
+    background-color:red;
+}
+
+#messages {
+    height:200px;   
 }
