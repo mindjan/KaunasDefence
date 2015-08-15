@@ -39,6 +39,23 @@ $(document).ready(function () {
     hub.on('defenderCreated', function () {
         $('#messages').append('asd');
     });
+
+
+    hub.on('roundStarted', function () {
+        $('#messages').append('Round started!');
+    });
+
+    hub.on('roundFinished', function () {
+        $('#messages').append('Round finished!');
+    });
+
+    hub.on('attackerWon', function () {
+        $('#messages').append('Attacker won!');
+    });
+
+    hub.on('defenderWon', function () {
+        $('#messages').append('Defender won!');
+    });
 });
 
 
