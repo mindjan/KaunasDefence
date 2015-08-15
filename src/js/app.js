@@ -9,6 +9,7 @@ var Game = (function () {
     function init() {
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setClearColor(0xE0EEEE);
+        pointerLock.init(camera, scene);
         document.body.appendChild(renderer.domElement);
     }
 
@@ -52,7 +53,7 @@ $(document).ready(function () {
     $.connection.hub.start()
         .done(function () {
             hub.server.createGameRoom();
-        document.location.hash = "mode=initial";
+            document.location.hash = "mode=initial";
         });
 
     hub.on('gameRoomCreated', function () {
@@ -76,16 +77,16 @@ $(document).ready(function () {
         hub.server.attackerReady();
         hub.server.defenderReady();
     });
-    
+
     hub.on('attackerPrepared', function () {
         $('#messages').append('Attacker prepared !<br />');
-        
+
     });
-    
+
     hub.on('defenderPrepared', function () {
         $('#messages').append('Defender prepared !<br />');
     });
-    
+
     hub.on('roundStarted', function () {
         $('#messages').append('Round started!<br />');
     });
@@ -94,32 +95,34 @@ $(document).ready(function () {
         $('#messages').append('Attacker won!<br />');
     });
 
-     hub.on('roundFinished', function () {
-     $('#messages').append('Round finished!<br />');
-     });
-
-
-     hub.on('defenderWon', function () {
-     $('#messages').append('Defender won!<br />');
-     });
-    
-    $('#player_1').click(function () {
-        document.location.hash = "mode=attacker";  
+    hub.on('roundFinished', function () {
+        $('#messages').append('Round finished!<br />');
     });
+
+
+    hub.on('defenderWon', function () {
+        $('#messages').append('Defender won!<br />');
+    });
+
+    $('#player_1').click(function () {
+        document.location.hash = "mode=attacker";
+    });
+
     $('#player_2').click(function () {
         document.location.hash = "mode=defender";
     });
-    
-    
-        window.onhashchange = function(){
-    var what_to_do = document.location.hash;    
-    if (what_to_do=="#mode=initial") {
-        console.log("initial mode");
-    } else if (what_to_do=="#mode=attacker") {
-        console.log("attacker mode");
-    } else if (what_to_do=="#mode=defender") {
-        console.log("defender mode");
-    }};
-    
-    
+
+
+    window.onhashchange = function () {
+        var what_to_do = document.location.hash;
+        if (what_to_do == "#mode=initial") {
+            console.log("initial mode");
+        } else if (what_to_do == "#mode=attacker") {
+            console.log("attacker mode");
+        } else if (what_to_do == "#mode=defender") {
+            console.log("defender mode");
+        }
+    };
+
+
 });

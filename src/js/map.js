@@ -11,7 +11,7 @@ var Map = (function () {
         roadTexture.repeat.set(1, 1);
 
         var road = new THREE.Mesh(
-            new THREE.BoxGeometry(1000, 1000, 700),
+            new THREE.BoxGeometry(1000, 1, 700),
             new THREE.MeshLambertMaterial({
                 map: roadTexture
             })
@@ -19,8 +19,6 @@ var Map = (function () {
 
 
         road.name = "road";
-        road.position.y = 1;
-        road.position.z = 1;
         game.scene.add(road);
     }
 
@@ -36,8 +34,8 @@ var Map = (function () {
     }
 
     function resetScene(game) {
-        game.camera.position.set(0, 1000, 50);
-        game.camera.rotation.set(30, 0, 0);
+        game.camera.position.set(-100, 100, 500);
+        game.camera.rotation.set(50, 0, 0);
     }
 
     return {
