@@ -86,7 +86,7 @@ $(document).ready(function () {
 
     hub.on('setupStarted', function (data) {
         $('#messages').append('Setup started !<br />');
-        map.createRoad(game, data.PosX, data.PosY);
+        map.createRoad(game, data.PosY);
         var map_posX = {};
         hub.server.markAttackerReady();
         hub.server.markDefenderReady();
