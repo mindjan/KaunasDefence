@@ -82,8 +82,8 @@ $(document).ready(function () {
         hub.server.markDefenderReady();
     });
     
-    hub.on('towerCreated', function (posX, posY, posZ) {
-        tower.createTower(game, posX, posY, posZ);
+    hub.on('towerCreated', function (posX, posY) {
+        tower.createTower(game, posX, posY, 1);
     });
     
     hub.on('attackerWasMarkedReady', function () {
@@ -110,6 +110,11 @@ $(document).ready(function () {
 
     hub.on('defenderWon', function () {
         $('#messages').append('Defender won!<br />');
+    });
+    
+    hub.on('attackerReceivedDamage', function (health_left) {
+         $('#messages').append('Attacker received damage !<br />'); 
+        $('#health_bar').css("width", health_left);
     });
 
     $('#player_1').click(function () {
