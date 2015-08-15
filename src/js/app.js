@@ -37,7 +37,7 @@ $(document).ready(function () {
     var game = Game;
     var map = Map;
     var con = $.hubConnection();
-    var hub = $.connection.mainTowerDefenseHub;
+    var hub = $.connection.myHub;
 
     game.init();
 
@@ -50,39 +50,58 @@ $(document).ready(function () {
 
 
     $.connection.hub.start()
-     .done(function () {
-     hub.server.createGameRoom();
-     });
+        .done(function () {
+            hub.server.createGameRoom();
+        });
 
-     hub.on('gameRoomCreated', function () {
-     hub.server.createDefender(game.defender);
-     });
-     hub.on('gameRoomCreated', function () {
-     $.connection.hub.start()
-     .done(function () {
-     hub.server.createAttacker(game.attacker);
-     });
-     });
+    hub.on('gameRoomCreated', function () {
+        $('#messages').append('Game room created !');
+        hub.server.createDefender();
+        hub.server.createAttacker();
+    });
 
+    hub.on('defenderCreated', function () {
+        $('#messages').append('Defender created !');
+    });
+
+    hub.on('attackerCreated', function () {
+        $('#messages').append('Attacker created !');
+    });
+
+    hub.on('setupStarted', function () {
+        $('#messages').append('Setup started !');
+        hub.server.attackerReady();
+        hub.server.defenderReady();
+    });
+    
+    hub.on('attackerPrepared', function () {
+        $('#messages').append('Attacker prepared !');
+    });
+    
+    hub.on('defenderPrepared', function () {
+        $('#messages').append('Defender prepared !');
+    });
+    
+    hub.on('roundStarted', function () {
+        $('#messages').append('Round started!');
+    });
+    
      hub.on('defenderCreated', function () {
      $('#messages').append('asd');
      });
 
      hub.on('attackerCreated', function () {
-     hub.server.createAttacker(game.attacker);
+         $('#messages').append('Attacker created!');
      });
 
-     hub.on('roundStarted', function () {
-     $('#messages').append('Round started!');
-     });
+    hub.on('attackerWon', function () {
+        $('#messages').append('Attacker won!');
+    });
 
      hub.on('roundFinished', function () {
      $('#messages').append('Round finished!');
      });
 
-     hub.on('attackerWon', function () {
-     $('#messages').append('Attacker won!');
-     });
 
      hub.on('defenderWon', function () {
      $('#messages').append('Defender won!');
