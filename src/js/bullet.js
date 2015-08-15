@@ -5,28 +5,28 @@ var Bullet = (function () {
     function createBullet(game) {
         bullet.name = "Bullet";
         bullet.position.x = 380;
-        bullet.position.y = 100;
+        bullet.position.y = 50;
         bullet.position.z = 1;
         game.scene.add(bullet);
     }
 
     function shootAttackerFromTower(tower, attacker) {
 
-        var i = tower.position.x - attacker.position.x;
-
-        console.log(i);
-        console.log("Aaaaaaaaaaaaaaa");
+        var x = tower.position.x - attacker.position.x;
 
         function timeout() {
             setTimeout(function () {
                 timeout();
 
-
-                if (attacker.x < 1000) {
-
+                if (x > 0) {
+                    console.log(x);
+                    x -= 5;
                     bullet.position.x -= 5;
                 }
-                else clearInterval();
+                else {
+                    x = tower.position.x - attacker.position.x;
+                    bullet.position.x = tower.position.x;
+                }
             }, 1);
         }
 

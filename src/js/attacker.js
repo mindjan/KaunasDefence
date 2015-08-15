@@ -7,7 +7,7 @@ var Attacker = (function () {
         attacker.name = "attacker";
         attacker.position.x = 1;
         attacker.position.y = 40;
-        attacker.position.z = 1;
+        attacker.position.z = 100;
         game.scene.add(attacker);
         
         return attacker;
