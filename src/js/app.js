@@ -87,14 +87,6 @@ $(document).ready(function () {
     hub.on('roundStarted', function () {
         $('#messages').append('Round started!');
     });
-    
-     hub.on('defenderCreated', function () {
-     $('#messages').append('asd');
-     });
-
-     hub.on('attackerCreated', function () {
-         $('#messages').append('Attacker created!');
-     });
 
     hub.on('attackerWon', function () {
         $('#messages').append('Attacker won!');
