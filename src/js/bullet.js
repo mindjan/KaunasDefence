@@ -11,25 +11,19 @@ var Bullet = (function () {
     }
 
     function shootAttackerFromTower(tower, attacker) {
-        var attackerWidth = attacker.position.x;
-        var distYAttacker = attacker.position.z;
-
-        var x = tower.position.x - attackerWidth;
-        var z = distYAttacker - tower.position.z;
-        var distance = Math.sqrt(Math.pow(x, 2) + Math.pow(z, 2));
+        var distance = Math.sqrt(Math.pow(tower.position.x - attacker.position.x, 2) + Math.pow(attacker.position.z - tower.position.z, 2));
 
         var interval = 50;
         var intervalValue = 0;
         var distValue = distance / interval;
-        var distX = attacker.position.x;
-
-        console.log(distValue);
+        var distX;
 
         function timeout() {
             setTimeout(function () {
                 timeout();
 
                 if (intervalValue * distValue < distance) {
+                    distance = Math.sqrt(Math.pow(tower.position.x - attacker.position.x, 2) + Math.pow(attacker.position.z - tower.position.z, 2));
 
                     /**
                      * Moving x position
@@ -43,7 +37,7 @@ var Bullet = (function () {
                      * Moving z position
                      */
 
-                    bullet.position.z = Math.sqrt(Math.pow(distance/interval * intervalValue, 2) - Math.pow(intervalValue * x/interval, 2));
+                    bullet.position.z = Math.sqrt(Math.pow(distance / interval * intervalValue, 2) - Math.pow(intervalValue * (tower.position.x - attacker.position.x) / interval, 2));
                     intervalValue++;
                 }
                 else {
