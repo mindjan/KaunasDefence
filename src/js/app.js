@@ -37,6 +37,7 @@ $(document).ready(function () {
     $.connection.hub.url = "http://192.168.1.104:43210/signalr";
     var game = Game;
     var map = Map;
+    var attacker = Attacker;
     var con = $.hubConnection();
     var hub = $.connection.myHub;
 
@@ -45,7 +46,7 @@ $(document).ready(function () {
     map.resetScene(game);
     map.addLight(game);
     map.createRoad(game);
-
+    attacker.createAtacker(game);
 
     /** Lighting **/
 
