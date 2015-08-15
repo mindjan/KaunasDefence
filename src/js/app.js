@@ -52,7 +52,7 @@ $(document).ready(function () {
     $.connection.hub.start()
         .done(function () {
             hub.server.createGameRoom();
-//        var url = $(location).attr('href');
+        document.location.hash = "mode=initial";
         });
 
     hub.on('gameRoomCreated', function () {
@@ -79,6 +79,7 @@ $(document).ready(function () {
     
     hub.on('attackerPrepared', function () {
         $('#messages').append('Attacker prepared !<br />');
+        
     });
     
     hub.on('defenderPrepared', function () {
@@ -101,4 +102,24 @@ $(document).ready(function () {
      hub.on('defenderWon', function () {
      $('#messages').append('Defender won!<br />');
      });
+    
+    $('#player_1').click(function () {
+        document.location.hash = "mode=attacker";  
+    });
+    $('#player_2').click(function () {
+        document.location.hash = "mode=defender";
+    });
+    
+    
+        window.onhashchange = function(){
+    var what_to_do = document.location.hash;    
+    if (what_to_do=="#mode=initial") {
+        console.log("initial mode");
+    } else if (what_to_do=="#mode=attacker") {
+        console.log("attacker mode");
+    } else if (what_to_do=="#mode=defender") {
+        console.log("deffender mode");
+    }};
+    
+    
 });
