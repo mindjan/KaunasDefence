@@ -52,6 +52,7 @@ $(document).ready(function () {
     $.connection.hub.start()
         .done(function () {
             hub.server.createGameRoom();
+//        var url = $(location).attr('href');
         });
 
     hub.on('gameRoomCreated', function () {
