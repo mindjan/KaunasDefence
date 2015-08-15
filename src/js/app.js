@@ -12,10 +12,12 @@ var Game = (function () {
     }
 
     var defender = {};
+    var attacker = {};
 
     return {
         init: init,
-        defender: defender
+        defender: defender,
+        attacker: attacker
     };
 })();
 
@@ -38,9 +40,18 @@ $(document).ready(function () {
                 hub.server.createDefender(game.defender);
             });
     });
+    hub.on('gameRoomCreated', function () {
+        $.connection.hub.start()
+            .done(function () {
+                hub.server.createAttacker(game.attacker);
+            });
+    });
 
     hub.on('defenderCreated', function () {
         $('#messages').append('asd');
+    });
+    hub.on('attackerCreated', function () {
+                hub.server.createAttacker(game.attacker);
     });
 });
 
