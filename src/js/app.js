@@ -1,18 +1,3 @@
-$.connection.hub.url = "http://172.16.243.156:18080/signalr";
-
-var con = $.hubConnection();
-var hub = $.connection.mainTowerDefenseHub;
-
-$.connection.hub.start()
-    .done(function () {
-        hub.server.createGameRoom();
-    });
-
-hub.on('gameRoomCreated', function () {
-
-});
-
-
 var Game = (function () {
     'use strict';
 
@@ -26,12 +11,34 @@ var Game = (function () {
         document.body.appendChild(renderer.domElement);
     }
 
+    var defender {
+
+    };
+
     return {
-        init: init
+        init: init,
+        defender: defender
     };
 })();
 
 $(document).ready(function () {
+    $.connection.hub.url = "http://192.168.1.104:43210/signalr";
     var game = Game;
+    var con = $.hubConnection();
+    var hub = $.connection.mainTowerDefenseHub;
+
     game.init();
+
+    $.connection.hub.start()
+        .done(function () {
+            hub.server.createGameRoom();
+        });
+
+    hub.on('gameRoomCreated', function () {
+        $.connection.hub.start()
+            .done(function () {
+                hub.server.createDefender(game.defender);
+            });
+    });
+
 });
