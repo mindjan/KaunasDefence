@@ -33,7 +33,7 @@ var Game = (function () {
 
 
 $(document).ready(function () {
-    $.connection.hub.url = "http://192.168.1.104:43210/signalr";
+    $.connection.hub.url = "http://localhost:43210/signalr";
     var game = Game;
     var map = Map;
     var tower = Tower;
@@ -62,7 +62,12 @@ $(document).ready(function () {
     hub.on('gameRoomCreated', function () {
         $('#messages').append('Game room created !<br />');
         hub.server.connectDefender();
-        hub.server.connectttacker();
+        hub.server.connectAttacker();
+    });
+    
+    hub.on('defenderConnected', function () {
+        $('#messages').append('Attacker connected !<br />');
+        $('#player_1').css("background-color", "green");
     });
 
     hub.on('attackerConnected', function () {
@@ -72,10 +77,8 @@ $(document).ready(function () {
 
     hub.on('setupStarted', function (data) {
         $('#messages').append('Setup started !<br />');
-        /!**
-         * On commit uncomment
-         *!/
-            //map.createRoad(game, data.posY);
+        map.createRoad(game, data.PosX, data.PosY);
+        var map_posX = {};
         hub.server.markAttackerReady();
         hub.server.markDefenderReady();
     });
