@@ -1,0 +1,28 @@
+{
+  "name": "Jugas",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jugas",
+  "license": "ISC",
+  "dependencies": {
+    "del": "^1.2.0",
+    "gulp": "^3.9.0",
+    "gulp-minify-css": "^1.2.0",
+    "gulp-uglify": "^1.2.0",
+    "gulp-usemin": "^0.3.11",
+    "gulp-watch": "^4.3.4"
+  },
+  "devDependencies": {
+    "connect": "^3.4.0",
+    "connect-modrewrite": "^0.8.1",
+    "connect-history-api-fallback": "^1.1.0",
+    "http": "0.0.0",
+    "opn": "^3.0.2",
+    "serve-index": "^1.7.1",
+    "serve-static": "^1.10.0"
+  }
+}

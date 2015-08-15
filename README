@@ -1,0 +1,19 @@
+Jugas
+
+To start the project:
+
+1. Go to https://nodejs.org/ and click 'Install' to install Node.js (Don't download Node.exe)
+2. Open command line in the project root directory
+3. Install git if not installed https://git-scm.com/downloads
+4. Install bower `npm install -g bower`
+5. Install `npm install gulp -g`
+6. Run `npm install`
+7. Run `bower install`
+8. Run `gulp`
+
+Common issues:
+
+1. If you fail to run npm, you probably need to update your PATH variable
+    http://stackoverflow.com/questions/20992723/npm-is-not-recognized-as-internal-or-external-command-operable-program-or-bat
+
+2. If you fail to run gulp, then you have to install gulp globally. Just run `npm install gulp -g`
