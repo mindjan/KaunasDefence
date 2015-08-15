@@ -11,9 +11,7 @@ var Game = (function () {
         document.body.appendChild(renderer.domElement);
     }
 
-    var defender {
-
-    };
+    var defender = {};
 
     return {
         init: init,
@@ -41,4 +39,7 @@ $(document).ready(function () {
             });
     });
 
+    hub.on('defenderCreated', function () {
+        console.log("DefenderCreated");
+    });
 });
