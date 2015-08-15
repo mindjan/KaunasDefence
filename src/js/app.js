@@ -118,7 +118,7 @@ $(document).ready(function () {
     } else if (what_to_do=="#mode=attacker") {
         console.log("attacker mode");
     } else if (what_to_do=="#mode=defender") {
-        console.log("deffender mode");
+        console.log("defender mode");
     }};
     
     
