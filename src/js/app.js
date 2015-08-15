@@ -58,33 +58,33 @@ $(document).ready(function () {
 
     hub.on('gameRoomCreated', function () {
         $('#messages').append('Game room created !<br />');
-        hub.server.createDefender();
-        hub.server.createAttacker();
+        hub.server.connectDefender();
+        hub.server.connectttacker();
     });
 
-    hub.on('defenderCreated', function () {
-        $('#messages').append('Defender created !<br />');
+    hub.on('defenderConnected', function () {
+        $('#messages').append('Defender connected !<br />');
         $('#player_1').css("background-color", "green");
     });
 
-    hub.on('attackerCreated', function () {
-        $('#messages').append('Attacker created !<br />');
+    hub.on('attackerConnected', function () {
+        $('#messages').append('Attacker connected !<br />');
         $('#player_2').css("background-color", "green");
     });
 
     hub.on('setupStarted', function () {
         $('#messages').append('Setup started !<br />');
-        hub.server.attackerReady();
-        hub.server.defenderReady();
+        hub.server.markAttackerReady();
+        hub.server.markDefenderReady();
     });
-
-    hub.on('attackerPrepared', function () {
-        $('#messages').append('Attacker prepared !<br />');
-
+    
+    hub.on('attackerWasMarkedReady', function () {
+        $('#messages').append('Attacker was marked ready !<br />');
+        
     });
-
-    hub.on('defenderPrepared', function () {
-        $('#messages').append('Defender prepared !<br />');
+    
+    hub.on('defenderWasMarkedReady', function () {
+        $('#messages').append('Defender was marked ready !<br />');
     });
 
     hub.on('roundStarted', function () {
