@@ -53,7 +53,7 @@ $(document).ready(function () {
 
     bullet.shootAttackerFromTower(tower.tower, game.attacker.attacker);
 
-    /*$.connection.hub.start()
+    $.connection.hub.start()
         .done(function () {
             hub.server.createGameRoom();
             document.location.hash = "mode=initial";
@@ -81,9 +81,11 @@ $(document).ready(function () {
     });
 
     hub.on('attackerMove', function (x, z) {
-        attacker.moveAtacker(x, z);
-        game.camera.position.set(x, 200, z + 50);
-        game.camera.rotation.set(50, 0, 0);
+        game.attacker.moveAttacker(1, z*10*-1);
+        game.camera.position.x = 1;
+        game.camera.position.y = 100;
+        game.camera.position.z = z*10*-1 +200;
+        game.camera.rotation.set(0, 0, 0);
     });
 
 
@@ -127,7 +129,7 @@ $(document).ready(function () {
         $('#messages').append('Attacker received damage !<br />');
         $('#health_bar').css("width", health_left + "%");
     });
-*/
+
 
     $('#player_1').click(function () {
         document.location.hash = "mode=attacker";
