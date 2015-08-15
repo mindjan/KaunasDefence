@@ -31,7 +31,7 @@ body {
 }
 
 #messages {
-    height:200px;   
+    height:auto;   
 }
 
 #health_bar {
@@ -47,7 +47,7 @@ body {
     padding:5px;
     margin: 0 auto;
     text-align:center;
-    position:absolute;
-    top:820px;
+    position:fixed;
+    top:50px;
     left:840px;
 }
