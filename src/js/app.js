@@ -33,10 +33,7 @@ $(document).ready(function () {
         });
 
     hub.on('gameRoomCreated', function () {
-        $.connection.hub.start()
-            .done(function () {
-                hub.server.createDefender(game.defender);
-            });
+        hub.server.createDefender(game.defender);
     });
 
     hub.on('defenderCreated', function () {
