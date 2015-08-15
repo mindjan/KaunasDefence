@@ -55,49 +55,49 @@ $(document).ready(function () {
         });
 
     hub.on('gameRoomCreated', function () {
-        $('#messages').append('Game room created !');
+        $('#messages').append('Game room created !<br />');
         hub.server.createDefender();
         hub.server.createAttacker();
     });
 
     hub.on('defenderCreated', function () {
-        $('#messages').append('Defender created !');
+        $('#messages').append('Defender created !<br />');
         $('#player_1').css("background-color", "green");
     });
 
     hub.on('attackerCreated', function () {
-        $('#messages').append('Attacker created !');
+        $('#messages').append('Attacker created !<br />');
         $('#player_2').css("background-color", "green");
     });
 
     hub.on('setupStarted', function () {
-        $('#messages').append('Setup started !');
+        $('#messages').append('Setup started !<br />');
         hub.server.attackerReady();
         hub.server.defenderReady();
     });
     
     hub.on('attackerPrepared', function () {
-        $('#messages').append('Attacker prepared !');
+        $('#messages').append('Attacker prepared !<br />');
     });
     
     hub.on('defenderPrepared', function () {
-        $('#messages').append('Defender prepared !');
+        $('#messages').append('Defender prepared !<br />');
     });
     
     hub.on('roundStarted', function () {
-        $('#messages').append('Round started!');
+        $('#messages').append('Round started!<br />');
     });
 
     hub.on('attackerWon', function () {
-        $('#messages').append('Attacker won!');
+        $('#messages').append('Attacker won!<br />');
     });
 
      hub.on('roundFinished', function () {
-     $('#messages').append('Round finished!');
+     $('#messages').append('Round finished!<br />');
      });
 
 
      hub.on('defenderWon', function () {
-     $('#messages').append('Defender won!');
+     $('#messages').append('Defender won!<br />');
      });
 });
