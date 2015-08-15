@@ -25,7 +25,7 @@ $(document).ready(function () {
     $.connection.hub.url = "http://192.168.1.104:43210/signalr";
     var game = Game;
     var con = $.hubConnection();
-    var hub = $.connection.mainTowerDefenseHub;
+    var hub = $.connection.myHub;
 
     game.init();
 
@@ -35,13 +35,9 @@ $(document).ready(function () {
         });
 
     hub.on('gameRoomCreated', function () {
+        $('#messages').append('Game room created !');
         hub.server.createDefender();
-    });
-    hub.on('gameRoomCreated', function () {
-        $.connection.hub.start()
-            .done(function () {
-                hub.server.createAttacker();
-            });
+        hub.server.createAttacker();
     });
 
     hub.on('defenderCreated', function () {
