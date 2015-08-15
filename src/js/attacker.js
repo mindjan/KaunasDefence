@@ -5,9 +5,9 @@ var Attacker = (function () {
     'use strict';
     function createAtacker(game) {
         attacker.name = "attacker";
-        attacker.position.x = 1;
+        attacker.position.x = 0;
         attacker.position.y = 40;
-        attacker.position.z = 100;
+        attacker.position.z = 0;
         game.scene.add(attacker);
         
         return attacker;

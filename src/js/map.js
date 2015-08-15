@@ -7,9 +7,6 @@ var Map = (function () {
     function createRoad(game, roadLength) {
 
         var roadTexture = THREE.ImageUtils.loadTexture('img/road.png');
-        roadTexture.wrapS = roadTexture.wrapT = THREE.RepeatWrapping;
-        roadTexture.repeat.set(1, 1);
-
         var road = new THREE.Mesh(
             new THREE.BoxGeometry(500, 20, roadLength),
             new THREE.MeshLambertMaterial({
