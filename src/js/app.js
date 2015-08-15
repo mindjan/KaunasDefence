@@ -20,6 +20,7 @@ var Game = (function () {
 
     var defender = {};
     var attacker = {};
+    var tower = {};
 
     return {
         init: init,
@@ -27,8 +28,8 @@ var Game = (function () {
         camera: camera,
         scene: scene,
         defender: defender,
-        attacker: attacker
-
+        attacker: attacker,
+        tower: tower
     };
 })();
 
@@ -38,6 +39,7 @@ $(document).ready(function () {
     var game = Game;
     var map = Map;
     var attacker = Attacker;
+    var tower = Tower;
     var con = $.hubConnection();
     var hub = $.connection.myHub;
 
@@ -47,6 +49,7 @@ $(document).ready(function () {
     map.addLight(game);
     map.createRoad(game);
     attacker.createAtacker(game);
+    tower.createTower(game);
 
     /** Lighting **/
 
