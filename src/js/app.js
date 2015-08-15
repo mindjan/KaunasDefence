@@ -114,7 +114,7 @@ $(document).ready(function () {
     
     hub.on('attackerReceivedDamage', function (health_left) {
          $('#messages').append('Attacker received damage !<br />'); 
-        $('#health_bar').css("width", health_left);
+        $('#health_bar').css("width", health_left+"%");
     });
 
     $('#player_1').click(function () {
