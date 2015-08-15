@@ -8,7 +8,7 @@ var Game = (function () {
 
     function init() {
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setClearColor(0xE0EEEE);
+        renderer.setClearColor(0x000000);
         pointerLock.init(camera, scene);
         document.body.appendChild(renderer.domElement);
     }
@@ -24,12 +24,10 @@ var Game = (function () {
 
     return {
         init: init,
-        render: render,
         camera: camera,
+        render: render,
         scene: scene,
-        defender: defender,
-        attacker: attacker,
-        tower: tower
+        attacker: attacker
     };
 })();
 
@@ -39,19 +37,23 @@ $(document).ready(function () {
     var game = Game;
     var map = Map;
     var tower = Tower;
+    var bullet = Bullet;
     var con = $.hubConnection();
     var hub = $.connection.myHub;
 
     game.init();
 
-    map.resetScene(game);
-    map.addLight(game);
-    map.createRoad(game);
-    game.scene.add(game.attacker.createAtacker());
+    /**
+     * On commit delete
+     */
+    map.createRoad(game, 4000);
+    bullet.createBullet(game);
     tower.createTower(game, 400, 40, 1);
-//    tower.createTower(game, 100, 40, 1);
-    /** Lighting **/
-    $.connection.hub.start()
+    game.scene.add(game.attacker.createAtacker(game));
+
+    bullet.shootAttackerFromTower(tower.tower, game.attacker.attacker);
+
+    /*$.connection.hub.start()
         .done(function () {
             hub.server.createGameRoom();
             document.location.hash = "mode=initial";
@@ -60,12 +62,7 @@ $(document).ready(function () {
     hub.on('gameRoomCreated', function () {
         $('#messages').append('Game room created !<br />');
         hub.server.connectDefender();
-        hub.server.connectAttacker();
-    });
-
-    hub.on('defenderConnected', function () {
-        $('#messages').append('Defender connected !<br />');
-        $('#player_1').css("background-color", "green");
+        hub.server.connectttacker();
     });
 
     hub.on('attackerConnected', function () {
@@ -73,9 +70,19 @@ $(document).ready(function () {
         $('#player_2').css("background-color", "green");
     });
 
-     hub.on('attackerMove', function (x,z) {
-       attacker.moveAtacker(x, z);
-        game.camera.position.set(x, 200, z+50);
+    hub.on('setupStarted', function (data) {
+        $('#messages').append('Setup started !<br />');
+        /!**
+         * On commit uncomment
+         *!/
+            //map.createRoad(game, data.posY);
+        hub.server.markAttackerReady();
+        hub.server.markDefenderReady();
+    });
+
+    hub.on('attackerMove', function (x, z) {
+        attacker.moveAtacker(x, z);
+        game.camera.position.set(x, 200, z + 50);
         game.camera.rotation.set(50, 0, 0);
     });
 
@@ -85,16 +92,16 @@ $(document).ready(function () {
         hub.server.markAttackerReady();
         hub.server.markDefenderReady();
     });
-    
-    hub.on('towerCreated', function (posX, posY) {
-        tower.createTower(game, posX, posY, 1);
-    });
-    
+
     hub.on('attackerWasMarkedReady', function () {
         $('#messages').append('Attacker was marked ready !<br />');
-        
+
     });
-    
+
+    hub.on('defenderWasMarkedReady', function () {
+        $('#messages').append('Defender was marked ready !<br />');
+    });
+
     hub.on('defenderWasMarkedReady', function () {
         $('#messages').append('Defender was marked ready !<br />');
     });
@@ -115,11 +122,12 @@ $(document).ready(function () {
     hub.on('defenderWon', function () {
         $('#messages').append('Defender won!<br />');
     });
-    
+
     hub.on('attackerReceivedDamage', function (health_left) {
-         $('#messages').append('Attacker received damage !<br />'); 
-        $('#health_bar').css("width", health_left+"%");
+        $('#messages').append('Attacker received damage !<br />');
+        $('#health_bar').css("width", health_left + "%");
     });
+*/
 
     $('#player_1').click(function () {
         document.location.hash = "mode=attacker";
@@ -140,4 +148,6 @@ $(document).ready(function () {
             console.log("defender mode");
         }
     };
+
+
 });
