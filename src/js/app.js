@@ -19,7 +19,7 @@ var Game = (function () {
     }
 
     var defender = {};
-    var attacker = {};
+    var attacker = Attacker;
     var tower = {};
 
     return {
@@ -38,7 +38,6 @@ $(document).ready(function () {
     $.connection.hub.url = "http://192.168.1.104:43210/signalr";
     var game = Game;
     var map = Map;
-    var attacker = Attacker;
     var tower = Tower;
     var con = $.hubConnection();
     var hub = $.connection.myHub;
@@ -48,12 +47,10 @@ $(document).ready(function () {
     map.resetScene(game);
     map.addLight(game);
     map.createRoad(game);
-    attacker.createAtacker(game);
+    game.scene.add(game.attacker.createAtacker());
     tower.createTower(game, 400, 40, 1);
 //    tower.createTower(game, 100, 40, 1);
     /** Lighting **/
-
-
     $.connection.hub.start()
         .done(function () {
             hub.server.createGameRoom();
@@ -75,6 +72,13 @@ $(document).ready(function () {
         $('#messages').append('Attacker connected !<br />');
         $('#player_2').css("background-color", "green");
     });
+
+     hub.on('attackerMove', function (x,z) {
+       attacker.moveAtacker(x, z);
+        game.camera.position.set(x, 200, z+50);
+        game.camera.rotation.set(50, 0, 0);
+    });
+
 
     hub.on('setupStarted', function () {
         $('#messages').append('Setup started !<br />');
@@ -136,6 +140,4 @@ $(document).ready(function () {
             console.log("defender mode");
         }
     };
-
-
 });
