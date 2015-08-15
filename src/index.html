@@ -14,7 +14,18 @@
 	<div id="test" style="font-size: 550%;"></div>
 	<div id="webgl-container"></div>
 
-	<div id="main_frame"> LET THE FUN BEGIN !</div>
+    <div id="messages"></div>
+    
+	<div id="main_frame"> 
+        <div>
+            <div id="player_1_frame">Player 1 :
+                <div id="player_1"></div>
+            </div>
+            <div id="player_2_frame">Player 2:
+                <div id="player_2"></div>
+            </div>
+        </div>
+    </div>
 
 <!-- build:js js/libs.min.js -->
 <script type="text/javascript" src="../bower_components/jquery/jquery.min.js"></script>
@@ -28,5 +39,6 @@
 <!-- build:js1 js/app.js -->
 <script type="text/javascript" src="js/app.js"></script>
 <!-- endbuild -->
+<!--<script type="text/javascript" src="js/comms.js"></script>-->
 </body>
 </html>
