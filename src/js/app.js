@@ -8,7 +8,13 @@ var Game = (function () {
 
     function init() {
         renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0xE0EEEE);
         document.body.appendChild(renderer.domElement);
+    }
+
+    function render() {
+        requestAnimationFrame(render);
+        renderer.render(scene, camera);
     }
 
     var defender = {};
@@ -16,54 +22,69 @@ var Game = (function () {
 
     return {
         init: init,
+        render: render,
+        camera: camera,
+        scene: scene,
         defender: defender,
         attacker: attacker
+
     };
 })();
+
 
 $(document).ready(function () {
     $.connection.hub.url = "http://192.168.1.104:43210/signalr";
     var game = Game;
+    var map = Map;
     var con = $.hubConnection();
     var hub = $.connection.mainTowerDefenseHub;
 
     game.init();
 
+    map.resetScene(game);
+    map.addLight(game);
+    map.createRoad(game);
+
+
+    /** Lighting **/
+
+
     $.connection.hub.start()
-        .done(function () {
-            hub.server.createGameRoom();
-        });
+     .done(function () {
+     hub.server.createGameRoom();
+     });
 
-    hub.on('gameRoomCreated', function () {
-        hub.server.createDefender(game.defender);
-    });
-    hub.on('gameRoomCreated', function () {
-        $.connection.hub.start()
-            .done(function () {
-                hub.server.createAttacker(game.attacker);
-            });
-    });
+     hub.on('gameRoomCreated', function () {
+     hub.server.createDefender(game.defender);
+     });
+     hub.on('gameRoomCreated', function () {
+     $.connection.hub.start()
+     .done(function () {
+     hub.server.createAttacker(game.attacker);
+     });
+     });
 
-    hub.on('defenderCreated', function () {
-        $('#messages').append('asd');
-    });
-    hub.on('attackerCreated', function () {
-                hub.server.createAttacker(game.attacker);
-    hub.on('roundStarted', function () {
-        $('#messages').append('Round started!');
-    });
+     hub.on('defenderCreated', function () {
+     $('#messages').append('asd');
+     });
 
-    hub.on('roundFinished', function () {
-        $('#messages').append('Round finished!');
-    });
+     hub.on('attackerCreated', function () {
+     hub.server.createAttacker(game.attacker);
+     });
 
-    hub.on('attackerWon', function () {
-        $('#messages').append('Attacker won!');
-    });
+     hub.on('roundStarted', function () {
+     $('#messages').append('Round started!');
+     });
 
-    hub.on('defenderWon', function () {
-        $('#messages').append('Defender won!');
-    });
+     hub.on('roundFinished', function () {
+     $('#messages').append('Round finished!');
+     });
+
+     hub.on('attackerWon', function () {
+     $('#messages').append('Attacker won!');
+     });
+
+     hub.on('defenderWon', function () {
+     $('#messages').append('Defender won!');
+     });
 });
-
-

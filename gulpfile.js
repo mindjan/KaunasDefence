@@ -3,7 +3,9 @@ var gulp = require('gulp');
 //Configuration
 var sourceFiles = {
     build: './bin/',
-    index: './src/**/*',
+    imgbuild: './bin/img/',
+    index: './src/index.html',
+    images: './src/img/*',
     hosts: {
         api: 'api'
     },
@@ -23,6 +25,11 @@ gulp.task('usemin', function () {
             css: [minifyCss(), 'concat']
         }))
         .pipe(gulp.dest(sourceFiles.build));
+});
+
+gulp.task('image', function () {
+    return gulp.src(sourceFiles.images)
+        .pipe(gulp.dest(sourceFiles.imgbuild));
 });
 
 function serverModule() {
@@ -74,4 +81,4 @@ gulp.task('clean', function (cb) {
 });
 
 
-gulp.task('default', ['usemin','watch','connect']);
+gulp.task('default', ['usemin', 'image','watch','connect']);
