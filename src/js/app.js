@@ -49,8 +49,8 @@ $(document).ready(function () {
     map.addLight(game);
     map.createRoad(game);
     attacker.createAtacker(game);
-    tower.createTower(game);
-
+    tower.createTower(game, 400, 40, 1);
+//    tower.createTower(game, 100, 40, 1);
     /** Lighting **/
 
 
@@ -63,7 +63,7 @@ $(document).ready(function () {
     hub.on('gameRoomCreated', function () {
         $('#messages').append('Game room created !<br />');
         hub.server.connectDefender();
-        hub.server.connectttacker();
+        hub.server.connectAttacker();
     });
 
     hub.on('defenderConnected', function () {
@@ -80,6 +80,10 @@ $(document).ready(function () {
         $('#messages').append('Setup started !<br />');
         hub.server.markAttackerReady();
         hub.server.markDefenderReady();
+    });
+    
+    hub.on('towerCreated', function (posX, posY, posZ) {
+        tower.createTower(game, posX, posY, posZ);
     });
     
     hub.on('attackerWasMarkedReady', function () {
