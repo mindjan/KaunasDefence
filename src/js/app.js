@@ -44,7 +44,7 @@ $(document).ready(function () {
     game.init();
 
     // on commit delete :)
-    map.createRoad(game, 4000);
+    map.createRoad(game, 990);
     //////////////////////////
     bullet.createBullet(game);
     tower.createTower(game, 400, 40, 0);
