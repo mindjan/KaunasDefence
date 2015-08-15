@@ -35,20 +35,23 @@ $(document).ready(function () {
         });
 
     hub.on('gameRoomCreated', function () {
-        hub.server.createDefender(game.defender);
+        hub.server.createDefender();
     });
     hub.on('gameRoomCreated', function () {
         $.connection.hub.start()
             .done(function () {
-                hub.server.createAttacker(game.attacker);
+                hub.server.createAttacker();
             });
     });
 
     hub.on('defenderCreated', function () {
         $('#messages').append('asd');
     });
+
     hub.on('attackerCreated', function () {
-                hub.server.createAttacker(game.attacker);
+        $('#messages').append('newmessage');
+    });
+
     hub.on('roundStarted', function () {
         $('#messages').append('Round started!');
     });
