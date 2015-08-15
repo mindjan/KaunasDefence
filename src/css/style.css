@@ -9,7 +9,7 @@ body {
 }
 
 #main_frame {
-    background-color: #929292;
+    background-color: #EEEEEE;
     width:1200px;
     height:600px;
     margin: 0 auto;
@@ -27,7 +27,7 @@ body {
     display:inline-block;
     width:100px;
     height:100px;
-    background-color:red;
+    background-color:#F44336;
 }
 
 #messages {
@@ -35,19 +35,19 @@ body {
 }
 
 #health_bar {
-    background-color: red;
+    background-color: #D32F2F;
     width:250px;
-    height:30px;
+    height:25px;
     margin: 0 auto;
 }
 
 #health_bar_container {
-    background-color: black;
+    background-color: #C62828;
     width:250px;
     padding:5px;
     margin: 0 auto;
     text-align:center;
     position:fixed;
-    top:50px;
-    left:840px;
+    top:20px;
+    left:1100px;
 }
