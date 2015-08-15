@@ -6,14 +6,17 @@ var Map = (function () {
 
     function createRoad(game) {
 
+        var roadTexture = THREE.ImageUtils.loadTexture('img/road.png');
+        roadTexture.wrapS = roadTexture.wrapT = THREE.RepeatWrapping;
+        roadTexture.repeat.set(1, 1);
+
         var road = new THREE.Mesh(
-            new THREE.BoxGeometry(1000, 1, 1000),
+            new THREE.BoxGeometry(1000, 1000, 700),
             new THREE.MeshLambertMaterial({
-                map: THREE.ImageUtils.loadTexture('img/road.png')
+                map: roadTexture
             })
         );
-        //road.wrapS = road.wrapT = THREE.RepeatWrapping;
-        //road.repeat.set(25, 25);
+
 
         road.name = "road";
         road.position.y = 1;
@@ -33,7 +36,7 @@ var Map = (function () {
     }
 
     function resetScene(game) {
-        game.camera.position.set(0, 1000, 100);
+        game.camera.position.set(0, 1000, 50);
         game.camera.rotation.set(30, 0, 0);
     }
 
