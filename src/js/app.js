@@ -56,6 +56,10 @@ $(document).ready(function () {
     setTimeout(function () {
         bullet.clearTimeOut();
     }, 3000);
+
+    setTimeout(function () {
+        bullet.shootAttackerFromTower(tower.tower, game.attacker.attacker);
+    }, 6000);
     //////////////////////////////////////
 
     $.connection.hub.start()

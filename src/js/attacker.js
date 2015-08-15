@@ -19,7 +19,7 @@ var Attacker = (function () {
 
     return {
         attacker: attacker,
-        createAttacker: createAttacker,
+        createAttacker: createAtacker,
         moveAttacker : moveAttacker
     };
 })();
