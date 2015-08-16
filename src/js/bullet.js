@@ -1,5 +1,5 @@
 var Bullet = (function () {
-    var bullet = new Physijs.BoxMesh(new THREE.CubeGeometry(10, 10, 10), new THREE.MeshLambertMaterial({color: 0xff0f0f}), 0);
+    var bullet = new Physijs.BoxMesh(new THREE.CubeGeometry(10, 10, 10), new THREE.MeshLambertMaterial({color: 0xFF1744}), 0);
     var intervalValue = 0;
     var intervalTimeout;
 

@@ -1,6 +1,6 @@
 var Attacker = (function () {
     "use strict";
-    var attacker = new Physijs.BoxMesh(new THREE.CubeGeometry(80, 80, 80), new THREE.MeshLambertMaterial({color: 0xFF3399}), 0);
+    var attacker = new Physijs.BoxMesh(new THREE.CubeGeometry(80, 80, 80), new THREE.MeshLambertMaterial({color: 0x81D4FA}), 0);
 
     function createAtacker(game) {
         attacker.name = "attacker";

@@ -1,7 +1,7 @@
 var Tower = (function () {
     'use strict';
 
-    var tower = new Physijs.BoxMesh(new THREE.CubeGeometry(40, 160, 40), new THREE.MeshLambertMaterial({color: 0xFFFFFF}), 0);
+    var tower = new Physijs.BoxMesh(new THREE.CubeGeometry(40, 160, 40), new THREE.MeshLambertMaterial({color: 0xB71C1C}), 0);
 
     function createTower(game, posX, posY, posZ) {
         tower.name = "tower";
