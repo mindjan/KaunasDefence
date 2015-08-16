@@ -94,7 +94,7 @@ $(document).ready(function () {
     ///////////////////////////////
 
     setTimeout(function () {
-        bullet.shootAttackerFromTower(tower.tower, game.attacker.attacker);
+        bullet.shootAttackerFromTower(tower.tower[0], game.attacker.attacker);
     }, 6000);
     //////////////////////////////////////
 
@@ -124,15 +124,14 @@ $(document).ready(function () {
         $('#messages').append('Setup started !');
         game.mapSize = data.PosY*10;
         map.createRoad(game, data.PosY);
-        $.each(data["Cells"], function (index, val) {
-            if (data["Cells"][index]["Type"] == "Placement") {
-                pos_cell_id[i] = data["Cells"][i]["CellId"];
-                posX_array[i] = data["Cells"][i]["PosX"];
-                posY_array[i] = data["Cells"][i]["PosY"];
-                towers[i] = tower.createTower(game, posY_array[i] * 10, 40, posX_array[i] * 10);
-                /*                console.log("id = " + pos_cell_id[i] + " posX - " + posX_array[i] + " posY - " + posY_array[i]);*/
+        $.each(data.Cells, function (index, val) {
+            if (data.Cells[index].Type == "Placement") {
+                pos_cell_id[i] = data.Cells[i].CellId;
+                posX_array[i] = data.Cells[i].PosX;
+                posY_array[i] = data.Cells[i].PosY;
+                towers[i] = tower.createTower(game, posY_array[i] * 10, 40, (posX_array[i] * 10) - (game.mapSize/2));
                 i++;
-                hub.server.placeTower(data["Cells"][i]["CellId"]);
+                hub.server.placeTower(data.Cells[i].CellId);
             }
 
         });
@@ -144,10 +143,12 @@ $(document).ready(function () {
     hub.on('attackerMoved', function (x, z) {
         var xCord = x*(-17)+(game.mapSize/2);
         game.attacker.moveAttacker(1, xCord);
-        game.camera.position.x = 1;
-        game.camera.position.y = 100;
-        game.camera.position.z = xCord + 200;
-        game.camera.rotation.set(0, 0, 0);
+        // game.camera.position.x = 1;
+        // game.camera.position.y = 100;
+        // game.camera.position.z = xCord + 200;
+        // game.camera.rotation.set(0, 0, 0);
+
+        game.camera.position.z = (game.mapSize/2) + 200;
     });
 
     hub.on('attackerWasMarkedReady', function () {
