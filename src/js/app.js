@@ -74,7 +74,7 @@ $(document).ready(function () {
     });
 
     hub.on('attackerConnected', function () {
-        $('#messages').append('Attacker connected !<br />');
+        $('#messages').append('Defender connected !<br />');
         $('#player_2').css("background-color", "#8BC34A");
     });
 
@@ -105,20 +105,9 @@ $(document).ready(function () {
         game.camera.rotation.set(0, 0, 0);
     });
 
-
-    hub.on('setupStarted', function () {
-        $('#messages').append('Setup started !<br />');
-        hub.server.markAttackerReady();
-        hub.server.markDefenderReady();
-    });
-
     hub.on('attackerWasMarkedReady', function () {
         $('#messages').append('Attacker was marked ready !<br />');
 
-    });
-
-    hub.on('defenderWasMarkedReady', function () {
-        $('#messages').append('Defender was marked ready !<br />');
     });
 
     hub.on('defenderWasMarkedReady', function () {
@@ -133,13 +122,12 @@ $(document).ready(function () {
         $('#messages').append('Attacker won!<br />');
     });
 
+      hub.on('defenderWon', function () {
+        $('#messages').append('Defender won!<br />');
+    });
+    
     hub.on('roundFinished', function () {
         $('#messages').append('Round finished!<br />');
-    });
-
-
-    hub.on('defenderWon', function () {
-        $('#messages').append('Defender won!<br />');
     });
 
     hub.on('attackerReceivedDamage', function (health_left) {
