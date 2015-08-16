@@ -40,6 +40,11 @@ $(document).ready(function () {
     var bullet = Bullet;
     var con = $.hubConnection();
     var hub = $.connection.myHub;
+    var i = 0;
+    var posX_array = {};
+    var posY_array = {};
+    var pos_cell_id = {};
+    var towers = {};
 
     game.init();
 
@@ -50,6 +55,7 @@ $(document).ready(function () {
     tower.createTower(game, 400, 40, 0);
     game.scene.add(game.attacker.createAttacker(game));
 
+<<<<<<< HEAD
 
     ////////////// On commit delete :)
     bullet.shootAttackerFromTower(tower.tower, game.attacker.attacker);
@@ -61,6 +67,9 @@ $(document).ready(function () {
         bullet.shootAttackerFromTower(tower.tower, game.attacker.attacker);
     }, 6000);
     //////////////////////////////////////
+=======
+    bullet.shootAttackerFromTower(tower.tower[0], game.attacker.attacker);
+>>>>>>> Multiple towers
 
     $.connection.hub.start()
         .done(function () {
@@ -86,12 +95,24 @@ $(document).ready(function () {
 
     hub.on('setupStarted', function (data) {
         $('#messages').append('Setup started !<br />');
-<<<<<<< Updated upstream
+<<<<<<< HEAD
         map.createRoad(game, data.PosY);
-=======
-        map.createRoad(game, data.PosX,4000);
->>>>>>> Stashed changes
         var map_posX = {};
+=======
+        map.createRoad(game, data.PosX, data.PosY);
+        $.each(data["Cells"], function(index, val) {
+            if (data["Cells"][index]["Type"] == "Placement") {
+                pos_cell_id[i] = data["Cells"][i]["CellId"];
+                posX_array[i] = data["Cells"][i]["PosX"];
+                posY_array[i] = data["Cells"][i]["PosY"];
+                towers[i] = tower.createTower(game, posY_array[i]*10, 40, posX_array[i]*10);
+                console.log("id = " + pos_cell_id[i] + " posX - " + posX_array[i] + " posY - " + posY_array[i]);
+                i++;
+            } 
+            
+        });
+        
+>>>>>>> Multiple towers
         hub.server.markAttackerReady();
         hub.server.markDefenderReady();
     });

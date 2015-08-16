@@ -40,6 +40,11 @@ $(document).ready(function () {
     var bullet = Bullet;
     var con = $.hubConnection();
     var hub = $.connection.myHub;
+    var i = 0;
+    var posX_array = {};
+    var posY_array = {};
+    var pos_cell_id = {};
+    var towers = {};
 
     game.init();
 
@@ -51,6 +56,7 @@ $(document).ready(function () {
     game.scene.add(game.attacker.createAttacker(game));
 
 
+    bullet.shootAttackerFromTower(tower.tower[0], game.attacker.attacker);
     ////////////// On commit delete :)
     bullet.shootAttackerFromTower(tower.tower, game.attacker.attacker);
     setTimeout(function () {
@@ -87,7 +93,18 @@ $(document).ready(function () {
     hub.on('setupStarted', function (data) {
         $('#messages').append('Setup started !<br />');
         map.createRoad(game, data.PosY);
-        var map_posX = {};
+        $.each(data["Cells"], function(index, val) {
+            if (data["Cells"][index]["Type"] == "Placement") {
+                pos_cell_id[i] = data["Cells"][i]["CellId"];
+                posX_array[i] = data["Cells"][i]["PosX"];
+                posY_array[i] = data["Cells"][i]["PosY"];
+                towers[i] = tower.createTower(game, posY_array[i]*10, 40, posX_array[i]*10);
+                console.log("id = " + pos_cell_id[i] + " posX - " + posX_array[i] + " posY - " + posY_array[i]);
+                i++;
+            } 
+            
+        });
+        
         hub.server.markAttackerReady();
         hub.server.markDefenderReady();
     });

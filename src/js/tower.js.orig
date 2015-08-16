@@ -1,7 +1,11 @@
 var Tower = (function () {
     'use strict';
 
+<<<<<<< HEAD
+    var tower = new Physijs.BoxMesh(new THREE.CubeGeometry(40, 160, 40), new THREE.MeshLambertMaterial({color: 0xB71C1C}), 0);
+=======
     var towers = [];
+>>>>>>> Multiple towers
 
     function createTower(game, posX, posY, posZ) {
         
