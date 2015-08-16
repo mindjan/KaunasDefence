@@ -179,9 +179,15 @@ function onDocumentMouseDown( event )
 
     hub.on('setupStarted', function () {
         $('#messages').append('Setup started !');
+        game.camera.rotation.x = 49.8;
+        game.camera.rotation.y = -1.5;
+        game.camera.rotation.z = -0.5;
         
+        game.camera.position.x = -600;
+        game.camera.position.y = 300;
+        game.camera.position.z = 0;
         hub.server.markAttackerReady();
-        hub.server.markDefenderReady();
+        
     });
 
     hub.on('attackerMoved', function (x, z) {
@@ -204,6 +210,7 @@ function onDocumentMouseDown( event )
 
     hub.on('roundStarted', function () {
         $('#notification_bar').hide();
+        $('#defender_ready').hide();
         $('#health_bar').show();
     });
 
@@ -217,6 +224,7 @@ function onDocumentMouseDown( event )
         $('#messages').append('Round finished!<br />');
         $('#notification_bar').show();
         $('#health_bar').hide();
+        $('#defender_ready').show();
     });
 
 
@@ -254,6 +262,10 @@ function onDocumentMouseDown( event )
         document.location.hash = "mode=defender";
     });
 
+    $('#defender_ready').click(function () {
+        hub.server.markDefenderReady();
+        $('#defender_ready').hide();
+    });
 
     window.onhashchange = function () {
         var what_to_do = document.location.hash;
