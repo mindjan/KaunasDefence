@@ -63,23 +63,23 @@ $(document).ready(function () {
         });
 
     hub.on('gameRoomCreated', function () {
-        $('#messages').append('Game room created !<br />');
+        $('#messages').append('Game room created !');
         hub.server.connectDefender();
         hub.server.connectAttacker();
     });
     
     hub.on('defenderConnected', function () {
-        $('#messages').append('Attacker connected !<br />');
+        $('#messages').append('Attacker connected !');
         $('#player_1').css("background-color", "#8BC34A");
     });
 
     hub.on('attackerConnected', function () {
-        $('#messages').append('Defender connected !<br />');
+        $('#messages').append('Defender connected !');
         $('#player_2').css("background-color", "#8BC34A");
     });
 
     hub.on('setupStarted', function (data) {
-        $('#messages').append('Setup started !<br />');
+        $('#messages').append('Setup started !');
         map.createRoad(game, data.PosY);
         $.each(data["Cells"], function(index, val) {
             if (data["Cells"][index]["Type"] == "Placement") {
@@ -106,32 +106,32 @@ $(document).ready(function () {
     });
 
     hub.on('attackerWasMarkedReady', function () {
-        $('#messages').append('Attacker was marked ready !<br />');
+        $('#messages').append('Attacker was marked ready !');
 
     });
 
     hub.on('defenderWasMarkedReady', function () {
-        $('#messages').append('Defender was marked ready !<br />');
+        $('#messages').append('Defender was marked ready !');
     });
 
     hub.on('roundStarted', function () {
-        $('#messages').append('Round started!<br />');
+        $('#messages').append('Round started!');
     });
 
     hub.on('attackerWon', function () {
-        $('#messages').append('Attacker won!<br />');
+        $('#messages').append('Attacker won!');
     });
 
       hub.on('defenderWon', function () {
-        $('#messages').append('Defender won!<br />');
+        $('#messages').append('Defender won!');
     });
     
     hub.on('roundFinished', function () {
-        $('#messages').append('Round finished!<br />');
+        $('#messages').append('Round finished!');
     });
 
     hub.on('attackerReceivedDamage', function (health_left) {
-        $('#messages').append('Attacker received damage !<br />');
+        $('#messages').append('Attacker received damage !');
         $('#health_bar').css("width", health_left + "%");
     });
 

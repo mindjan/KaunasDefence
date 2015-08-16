@@ -46,7 +46,7 @@ body {
 }
 
 #health_bar_container {
-    background-color: #C62828;
+    background-color: orange;
     width:250px;
     padding:5px;
     margin: 0 auto;
