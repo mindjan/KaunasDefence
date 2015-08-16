@@ -88,8 +88,6 @@ $(document).ready(function () {
 
 
     bullet.shootAttackerFromTower(tower.tower[0], game.attacker.attacker);
-    ////////////// On commit delete :)
-    bullet.shootAttackerFromTower(tower.tower, game.attacker.attacker);
     setTimeout(function () {
         bullet.clearTimeOut();
     }, 3000);
@@ -193,7 +191,7 @@ $(document).ready(function () {
     });
 
     hub.on('towerStartedShooting', function () {
-        bullet.shootAttackerFromTower(tower.tower, game.attacker.attacker);
+        bullet.shootAttackerFromTower(tower.tower[0], game.attacker.attacker);
     });
 
     hub.on('towerStoppedShooting', function () {
