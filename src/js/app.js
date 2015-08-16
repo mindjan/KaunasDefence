@@ -1,5 +1,5 @@
 var targetList = [];
-var towers = [];
+var towersHolder = [];
 var projector, mouse = { x: 0, y: 0 };
 
 
@@ -111,11 +111,10 @@ function onDocumentMouseDown( event )
     
     // if there is one (or more) intersections
     if ( intersects.length > 0 )
-    {           var i = towers.length;
-                if(towers.length) i = 0;
-                var position = intersects[0].object.position;
-                towers[i] = Tower.createTower(Game, position.x, 40, position.z, intersects[0].object.towerId);
-                hub.server.placeTower(intersects[0].object.towerId);
+    {           
+        var position = intersects[0].object.position;
+        towersHolder.push(Tower.createTower(Game, position.x, 40, position.z, intersects[0].object.towerId));
+        hub.server.placeTower(intersects[0].object.towerId);
 
     }
 
@@ -231,8 +230,8 @@ function onDocumentMouseDown( event )
     });
 
     hub.on('towerStartedShooting', function (id) {
-        $.each(towers, function (index, val) {
-            if (towers[index].towerId == id) {
+        $.each(towersHolder, function (index, val) {
+            if (towersHolder[index].towerId == id) {
                 val.material.color.setHex(0xff0000);
                 Bullet.shootAttackerFromTower(val, Attacker.attacker);
             }
@@ -240,8 +239,8 @@ function onDocumentMouseDown( event )
     });
 
     hub.on('towerStoppedShooting', function (id) {
-        $.each(towers, function (index, val) {
-            if (towers[index].towerId == id) {
+        $.each(towersHolder, function (index, val) {
+            if (towersHolder[index].towerId == id) {
                 val.material.color.setHex(0xFFFFFF);
             }
         });  
