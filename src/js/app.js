@@ -48,25 +48,13 @@ $(document).ready(function () {
 
     game.init();
 
-    // on commit delete :)
-    map.createRoad(game, 990);
-    //////////////////////////
     bullet.createBullet(game);
     tower.createTower(game, 400, 40, 0);
     game.scene.add(game.attacker.createAttacker(game));
 
 
     bullet.shootAttackerFromTower(tower.tower[0], game.attacker.attacker);
-    ////////////// On commit delete :)
-    bullet.shootAttackerFromTower(tower.tower, game.attacker.attacker);
-    setTimeout(function () {
-        bullet.clearTimeOut();
-    }, 3000);
 
-    setTimeout(function () {
-        bullet.shootAttackerFromTower(tower.tower, game.attacker.attacker);
-    }, 6000);
-    //////////////////////////////////////
 
     $.connection.hub.start()
         .done(function () {
