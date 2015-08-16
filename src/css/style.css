@@ -57,3 +57,14 @@ body {
     top:20px;
     left:830px;
 }
+
+#notification_bar {
+    background-color: #ffffff;
+    width:250px;
+    height:25px;
+    margin: 0 auto;
+    font-family: 'Roboto', sans-serif;
+    font-size:large;
+    display:none;
+
+}

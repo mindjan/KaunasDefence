@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Test</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
     <!-- build:css css/style.css -->
@@ -12,26 +12,27 @@
     <!-- endbuild -->
 </head>
 <body>
-	<div id="test" style="font-size: 550%;"></div>
-	<div id="webgl-container"></div>
+<div id="test" style="font-size: 550%;"></div>
+<div id="webgl-container"></div>
 
-    <div id="messages"></div>
-    
-	<div id="main_frame"> 
-        <div>
-            <div id="player_1_frame">Player 1:
-                <div id="player_1"></div>
-            </div>
-            <div id="player_2_frame">Player 2 :
-                <div id="player_2"></div>
-            </div>
+<div id="messages"></div>
+
+<div id="main_frame">
+    <div>
+        <div id="player_1_frame">Player 1:
+            <div id="player_1"></div>
+        </div>
+        <div id="player_2_frame">Player 2 :
+            <div id="player_2"></div>
         </div>
     </div>
-    
- 
-    <div id="health_bar_container">
-        <div id="health_bar">Health bar</div>    
-    </div>
+</div>
+
+
+<div id="health_bar_container">
+    <div id="health_bar">Health bar</div>
+    <div id="notification_bar">Round has finished</div>
+</div>
 
 <!-- build:js js/libs.min.js -->
 <script type="text/javascript" src="../bower_components/jquery/jquery.min.js"></script>
@@ -40,9 +41,10 @@
 <script type="text/javascript" src="js/vendor/physi.js"></script>
 <!-- endbuild -->
 
-<script src="http://localhost:43210/signalr/hubs"></script>
+<!--<script src="http://localhost:43210/signalr/hubs"></script>-->
 
 <!-- build:js1 js/app.js -->
+<script src="fonts/helvetiker_regular.typeface.js"></script>
 <script type="text/javascript" src="js/attacker.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript" src="js/map.js"></script>

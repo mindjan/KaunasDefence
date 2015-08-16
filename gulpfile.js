@@ -4,8 +4,10 @@ var gulp = require('gulp');
 var sourceFiles = {
     build: './bin/',
     imgbuild: './bin/img/',
+    fontsBuild: './bin/fonts/',
     index: './src/index.html',
     images: './src/img/*',
+    fonts: './src/fonts/*',
     hosts: {
         api: 'api'
     },
@@ -32,6 +34,11 @@ gulp.task('image', function () {
         .pipe(gulp.dest(sourceFiles.imgbuild));
 });
 
+gulp.task('font', function () {
+    return gulp.src(sourceFiles.fonts)
+        .pipe(gulp.dest(sourceFiles.fontsBuild));
+});
+
 function serverModule() {
     return {
         opn: require('opn'),
@@ -44,34 +51,34 @@ function serverModule() {
     };
 }
 
-gulp.task( 'connect', function() {
+gulp.task('connect', function () {
     var server = serverModule();
 
     var app = server.connect()
         .use(server.history())
-        .use( server.serveStatic( sourceFiles.build ) )
-        .use( '/bower_components', server.serveStatic( 'bower_components' ) )
-        .use( server.modRewrite( [
+        .use(server.serveStatic(sourceFiles.build))
+        .use('/bower_components', server.serveStatic('bower_components'))
+        .use(server.modRewrite([
             '^/api/(.*)$ ' + sourceFiles.hosts.api + '$1 [PNC]'
-        ] ) )
-        .use( server.serveIndex( sourceFiles.build ) );
+        ]))
+        .use(server.serveIndex(sourceFiles.build));
 
-    server.http.createServer( app )
-        .listen( sourceFiles.port )
-        .on( 'listening', function() {
-            console.log( 'Started connect web server on http://localhost:' + sourceFiles.port );
-        } );
+    server.http.createServer(app)
+        .listen(sourceFiles.port)
+        .on('listening', function () {
+            console.log('Started connect web server on http://localhost:' + sourceFiles.port);
+        });
 
-    server.opn( 'http://localhost:'+sourceFiles.port);
-} );
+    server.opn('http://localhost:' + sourceFiles.port);
+});
 
-gulp.task( 'watch', function() {
+gulp.task('watch', function () {
 
     gulp.watch(
         [
             './src/**/*'
         ],
-        [ 'usemin' ]
+        ['usemin']
     );
 
 });
@@ -81,4 +88,4 @@ gulp.task('clean', function (cb) {
 });
 
 
-gulp.task('default', ['usemin', 'image','watch','connect']);
+gulp.task('default', ['usemin', 'image', 'font', 'watch', 'connect']);
