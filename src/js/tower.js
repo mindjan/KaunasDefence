@@ -3,7 +3,7 @@ var Tower = (function () {
 
     var towers = [];
 
-    function createTower(game, posX, posY, posZ) {
+    function createTower(game, posX, posY, posZ, id) {
         
         var tower = new Physijs.BoxMesh(new THREE.CubeGeometry(40, 160, 40), new THREE.MeshLambertMaterial({color: 0xFFFFFF}), 0);
         
@@ -11,6 +11,7 @@ var Tower = (function () {
         tower.position.x = posX;
         tower.position.y = posY;
         tower.position.z = posZ;
+        tower.towerId = id;
         game.scene.add(tower);
         
         towers.push(tower);

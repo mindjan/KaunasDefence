@@ -66,7 +66,7 @@ var Game = (function () {
 
 
 $(document).ready(function () {
-    $.connection.hub.url = "http://localhost:43210/signalr";
+    $.connection.hub.url = "http://192.168.1.107:43210/signalr";
     var game = Game;
     var map = Map;
     var tower = Tower;
@@ -120,35 +120,36 @@ $(document).ready(function () {
         $('#player_2').css("background-color", "#8BC34A");
     });
 
-    hub.on('setupStarted', function (data) {
-        $('#messages').append('Setup started !');
+    hub.on('gameInitialized', function (data) {
+        $('#messages').append('Game initialized !');
         game.mapSize = data.PosY*10;
         map.createRoad(game, data.PosY);
         $.each(data.Cells, function (index, val) {
             if (data.Cells[index].Type == "Placement") {
-                pos_cell_id[i] = data.Cells[i].CellId;
-                posX_array[i] = data.Cells[i].PosX;
-                posY_array[i] = data.Cells[i].PosY;
-                towers[i] = tower.createTower(game, posY_array[i] * 10, 40, (posX_array[i] * 10) - (game.mapSize/2));
-                i++;
-                hub.server.placeTower(data.Cells[i].CellId);
+                var cellId = data.Cells[index].CellId;
+                var posX = data.Cells[index].PosX;
+                var posY = data.Cells[index].PosY;
+                towers[i] = tower.createTower(game, posY * 17 - 230, 40, (posX * -10) + (game.mapSize/2), cellId);
+                hub.server.placeTower(cellId);
+                i++;                
             }
-
         });
+    });
 
+    hub.on('setupStarted', function () {
+        $('#messages').append('Setup started !');
+        
         hub.server.markAttackerReady();
         hub.server.markDefenderReady();
     });
 
     hub.on('attackerMoved', function (x, z) {
-        var xCord = x*(-17)+(game.mapSize/2);
+        var xCord = x*(-10)+(game.mapSize/2);
         game.attacker.moveAttacker(1, xCord);
-        // game.camera.position.x = 1;
-        // game.camera.position.y = 100;
-        // game.camera.position.z = xCord + 200;
-        // game.camera.rotation.set(0, 0, 0);
-
-        game.camera.position.z = (game.mapSize/2) + 200;
+        game.camera.position.x = 1;
+        game.camera.position.y = 100;
+        game.camera.position.z = xCord + 200;
+        game.camera.rotation.set(0, 0, 0);
     });
 
     hub.on('attackerWasMarkedReady', function () {
@@ -161,7 +162,8 @@ $(document).ready(function () {
     });
 
     hub.on('roundStarted', function () {
-        $('#messages').append('Round started!');
+        $('#notification_bar').hide();
+        $('#health_bar').show();
     });
 
     hub.on('attackerWon', function () {
@@ -174,11 +176,6 @@ $(document).ready(function () {
         $('#messages').append('Round finished!<br />');
         $('#notification_bar').show();
         $('#health_bar').hide();
-        hub.server.markAttackerReady();
-        hub.server.markDefenderReady();
-        setTimeout(function () {
-            $('#notification_bar').hide();
-        }, 3000);
     });
 
 
@@ -191,12 +188,21 @@ $(document).ready(function () {
         $('#health_bar').css("width", health_left + "%");
     });
 
-    hub.on('towerStartedShooting', function () {
-        bullet.shootAttackerFromTower(tower.tower[0], game.attacker.attacker);
+    hub.on('towerStartedShooting', function (id) {
+        $.each(towers, function (index, val) {
+            if (towers[index].towerId == id) {
+                val.material.color.setHex(0xff0000);
+                Bullet.shootAttackerFromTower(val, Attacker.attacker);
+            }
+        });        
     });
 
-    hub.on('towerStoppedShooting', function () {
-        bullet.clearTimeOut();
+    hub.on('towerStoppedShooting', function (id) {
+        $.each(towers, function (index, val) {
+            if (towers[index].towerId == id) {
+                val.material.color.setHex(0xFFFFFF);
+            }
+        });  
     });
 
     $('#player_1').click(function () {

@@ -54,7 +54,7 @@ var Bullet = (function () {
                     bullet.position.x = 400;
                 }
 
-            }, 1);
+            }, 100);
         }
 
         timeout();
