@@ -97,11 +97,11 @@ $(document).ready(function () {
         hub.server.markDefenderReady();
     });
 
-    hub.on('attackerMove', function (x, z) {
-        game.attacker.moveAttacker(1, z*10*-1);
+    hub.on('attackerMoved', function (x, z) {
+        game.attacker.moveAttacker(1, x*10*-1);
         game.camera.position.x = 1;
         game.camera.position.y = 100;
-        game.camera.position.z = z*10*-1 +200;
+        game.camera.position.z = x*10*-1 +200;
         game.camera.rotation.set(0, 0, 0);
     });
 
