@@ -39,10 +39,10 @@ body {
     background-color: #D32F2F;
     width:250px;
     height:25px;
-    margin: 0 auto;
+/*    margin: 0 auto;*/
     font-family: 'Roboto', sans-serif;
     font-size:small;
-
+    
 }
 
 #health_bar_container {
@@ -53,5 +53,5 @@ body {
     text-align:center;
     position:fixed;
     top:20px;
-    left:1100px;
+    left:830px;
 }
