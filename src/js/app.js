@@ -89,6 +89,7 @@ $(document).ready(function () {
                 towers[i] = tower.createTower(game, posY_array[i]*10, 40, posX_array[i]*10);
 /*                console.log("id = " + pos_cell_id[i] + " posX - " + posX_array[i] + " posY - " + posY_array[i]);*/
                 i++;
+                hub.server.placeTower(data["Cells"][i]["CellId"]);
             } 
             
         });
