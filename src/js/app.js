@@ -124,6 +124,7 @@ $(document).ready(function () {
 
     hub.on('setupStarted', function (data) {
         $('#messages').append('Setup started !');
+        game.mapSize = data.PosY*10;
         map.createRoad(game, data.PosY);
         $.each(data["Cells"], function (index, val) {
             if (data["Cells"][index]["Type"] == "Placement") {
@@ -143,10 +144,11 @@ $(document).ready(function () {
     });
 
     hub.on('attackerMoved', function (x, z) {
-        game.attacker.moveAttacker(1, x * 10 * -1);
+        var xCord = x*(-17)+(game.mapSize/2);
+        game.attacker.moveAttacker(1, xCord);
         game.camera.position.x = 1;
         game.camera.position.y = 100;
-        game.camera.position.z = x * 10 * -1 + 200;
+        game.camera.position.z = xCord + 200;
         game.camera.rotation.set(0, 0, 0);
     });
 
