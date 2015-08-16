@@ -1,39 +1,7 @@
 var targetList = [];
+var towers = [];
 var projector, mouse = { x: 0, y: 0 };
 
-function onDocumentMouseDown( event ) 
-{
-    // the following line would stop any other event handler from firing
-    // (such as the mouse's TrackballControls)
-    // event.preventDefault();
-    
-    console.log("Click.");
-    
-    // update the mouse variable
-    mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-    mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-    
-    // find intersections
-
-    // create a Ray with origin at the mouse position
-    //   and direction into the scene (camera direction)
-    var vector = new THREE.Vector3( mouse.x, mouse.y, 1 );
-    projector.unprojectVector( vector, Game.camera );
-    var ray = new THREE.Raycaster( Game.camera.position, vector.sub( Game.camera.position ).normalize() );
-
-    // create an array containing all objects in the scene with which the ray intersects
-    var intersects = ray.intersectObjects( targetList );
-    
-    // if there is one (or more) intersections
-    if ( intersects.length > 0 )
-    {
-        console.log("Hit @ " + toString( intersects[0].point ) );
-        // change the color of the closest face.
-        intersects[ 0 ].face.color.setRGB( 0.8 * Math.random() + 0.2, 0, 0 ); 
-        intersects[ 0 ].object.geometry.colorsNeedUpdate = true;
-    }
-
-}
 
 var Game = (function () {
     'use strict';
@@ -56,7 +24,7 @@ var Game = (function () {
 
     }
 
-    function init() {
+    function init(onDocumentMouseDown) {
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setClearColor(0x000000);
         //pointerLock.init(camera, scene);
@@ -104,7 +72,7 @@ var Game = (function () {
 })();
 
 $(document).ready(function () {
-    $.connection.hub.url = "http://192.168.1.107:43210/signalr";
+    $.connection.hub.url = "http://localhost:43210/signalr";
     var game = Game;
     var map = Map;
     var tower = Tower;
@@ -118,8 +86,41 @@ $(document).ready(function () {
     var pos_cell_id = {};
     var towers = {};
     var bases = {};
+function onDocumentMouseDown( event ) 
+{
+    // the following line would stop any other event handler from firing
+    // (such as the mouse's TrackballControls)
+    // event.preventDefault();
+    
+    console.log("Click.");
+    
+    // update the mouse variable
+    mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+    mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+    
+    // find intersections
 
-    game.init();
+    // create a Ray with origin at the mouse position
+    //   and direction into the scene (camera direction)
+    var vector = new THREE.Vector3( mouse.x, mouse.y, 1 );
+    projector.unprojectVector( vector, Game.camera );
+    var ray = new THREE.Raycaster( Game.camera.position, vector.sub( Game.camera.position ).normalize() );
+
+    // create an array containing all objects in the scene with which the ray intersects
+    var intersects = ray.intersectObjects( targetList );
+    
+    // if there is one (or more) intersections
+    if ( intersects.length > 0 )
+    {           var i = towers.length;
+                if(towers.length) i = 0;
+                var position = intersects[0].object.position;
+                towers[i] = Tower.createTower(Game, position.x, 40, position.z, intersects[0].object.towerId);
+                hub.server.placeTower(intersects[0].object.towerId);
+
+    }
+
+}
+    game.init(onDocumentMouseDown);
 
     bullet.createBullet(game);
     tower.createTower(game, 400, 40, 0);

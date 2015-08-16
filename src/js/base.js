@@ -9,7 +9,7 @@ var Base = (function () {
         
         base.name = "base";
         base.position.x = posX;
-        base.position.y = posY;
+        base.position.y = posY-20;
         base.position.z = posZ;
         base.towerId = id;
         game.scene.add(base);

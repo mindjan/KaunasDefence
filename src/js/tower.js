@@ -9,7 +9,7 @@ var Tower = (function () {
         
         tower.name = "tower";
         tower.position.x = posX;
-        tower.position.y = posY;
+        tower.position.y = posY+60;
         tower.position.z = posZ;
         tower.towerId = id;
         game.scene.add(tower);
